@@ -1,4 +1,6 @@
 package com.br.streaming.subscription.api.dto;
 
-public record ErrorDetail() {
+import java.time.LocalDateTime;
+
+public record ErrorResponse(LocalDateTime timestamp, String message) {
 }
