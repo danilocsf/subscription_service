@@ -57,9 +57,8 @@ public class Subscription {
 
     public void cancel() {
         if (this.status == SubscriptionStatus.CANCELED) {
-            throw new BusinessException("Subscription is already canceled.");
+            throw new BusinessException("Assinatura já está cancelada.");
         }
         this.status = SubscriptionStatus.CANCELED;
-
     }
 }

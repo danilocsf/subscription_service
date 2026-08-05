@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,5 +22,11 @@ public class PlanService {
         log.info("Buscando pelo plano {} - (cache miss)", id);
         return planRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Plano {0} não encontrado.", id));
+    }
+
+    @Cacheable(value = "plans", key = "'all'")
+    public List<Plan> getAllPlans() {
+        log.info("Buscando todos os planos - (cache miss)");
+        return planRepository.findAll();
     }
 }

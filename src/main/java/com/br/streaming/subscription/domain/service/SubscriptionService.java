@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -55,5 +56,15 @@ public class SubscriptionService {
 
         Subscription newSubscription = subscriptionRepository.save(subscription);
         return mapper.toResponse(newSubscription);
+    }
+
+    @Transactional
+    public void cancelSubscription(UUID id) {
+        log.info("Cancelando a assinatura : {}", id);
+        Subscription subscription = subscriptionRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Assinatura {0} não encontrada", id));
+
+        subscription.cancel();
+        subscriptionRepository.save(subscription);
     }
 }
