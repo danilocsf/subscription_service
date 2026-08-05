@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -34,9 +35,10 @@ public class SubscriptionService {
         User user = userRepository.findById(request.userId())
                 .orElseThrow(() -> new NotFoundException("Usuário {0} não encontrado.", request.userId()));
 
-        if (subscriptionRepository.existsByUserIdAndStatus(user.getId(), SubscriptionStatus.ACTIVE)) {
-            log.warn("Usuário {} já possui uma assinatura ativa.", user.getId());
-            throw new BusinessException("Usuário {0} já possui uma assinatura ativa.", request.userId());
+        if (subscriptionRepository.existsByUserIdAndStatusIn(user.getId(), List.of(SubscriptionStatus.ACTIVE,
+                SubscriptionStatus.PENDING_PAYMENT))) {
+            log.warn("Usuário {} já possui uma assinatura ativa ou pendente de pagamento.", user.getId());
+            throw new BusinessException("Usuário {0} já possui uma assinatura ativa ou pendente de pagamento.", request.userId());
         }
 
         Plan plan = planService.getPlanById(request.planId());
@@ -47,7 +49,7 @@ public class SubscriptionService {
                 .plan(plan)
                 .startDate(today)
                 .expirationDate(today.plusMonths(1))
-                .status(SubscriptionStatus.ACTIVE)
+                .status(SubscriptionStatus.PENDING_PAYMENT)
                 .retryCount(0)
                 .build();
 

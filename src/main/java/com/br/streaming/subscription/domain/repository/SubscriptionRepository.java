@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, UUID> {
-    boolean existsByUserIdAndStatus(UUID userId, SubscriptionStatus status);
+    boolean existsByUserIdAndStatusIn(UUID userId, List<SubscriptionStatus> status);
 
     Optional<Subscription> findByUserIdAndStatus(UUID userId, SubscriptionStatus status);
 

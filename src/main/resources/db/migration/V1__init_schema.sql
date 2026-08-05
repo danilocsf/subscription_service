@@ -26,7 +26,9 @@ CREATE TABLE subscriptions (
     updated_at TIMESTAMP
 );
 
-CREATE UNIQUE INDEX idx_unique_active_sub ON subscriptions (user_id) WHERE status = 'ACTIVE';
+CREATE UNIQUE INDEX idx_unique_active_or_pending_sub
+ON subscriptions (user_id)
+WHERE status IN ('ACTIVE', 'PENDING_PAYMENT');
 
 INSERT INTO plans (id, name, price) VALUES
 ('11111111-1111-1111-1111-111111111111', 'BASICO', 19.90),
