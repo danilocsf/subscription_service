@@ -54,7 +54,7 @@ public class SubscriptionService {
                 .retryCount(0)
                 .build();
 
-        Subscription newSubscription = subscriptionRepository.save(subscription);
+        Subscription newSubscription = subscriptionRepository.saveAndFlush(subscription);
         return mapper.toResponse(newSubscription);
     }
 
