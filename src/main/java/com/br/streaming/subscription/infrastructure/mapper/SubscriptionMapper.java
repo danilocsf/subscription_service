@@ -9,7 +9,8 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SubscriptionMapper {
 
-    @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "user.name", target = "userName")
+    @Mapping(source = "user.email", target = "userEmail")
     @Mapping(source = "plan.name", target = "planName")
     SubscriptionResponse toResponse(Subscription subscription);
 }

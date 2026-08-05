@@ -35,5 +35,5 @@ INSERT INTO plans (id, name, price) VALUES
 
 INSERT INTO users (id, name, email, card_token) VALUES
 ('44444444-4444-4444-4444-444444444444', 'Danilo Ferreira', 'danilof@example.com', 'CARD_SUCCESS'),
-('55555555-5555-5555-5555-555555555555', 'Joao da Silva', 'joaos@example.com', 'CARD_FAIL');
+('55555555-5555-5555-5555-555555555555', 'Joao da Silva', 'joaos@example.com', 'CARD_FAIL'),
 ('66666666-6666-6666-6666-666666666666', 'Jose da Silva', 'joses@example.com', 'CARD_2_FAILS');

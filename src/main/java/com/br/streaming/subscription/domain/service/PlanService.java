@@ -20,6 +20,6 @@ public class PlanService {
     public Plan getPlanById(UUID id) {
         log.info("Buscando pelo plano {} - (cache miss)", id);
         return planRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Plano {} não encontrado.", id));
+                .orElseThrow(() -> new NotFoundException("Plano {0} não encontrado.", id));
     }
 }
